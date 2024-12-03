@@ -30,7 +30,9 @@ cloud-detection-FMask/
 │       ├── summary_metrics_table.png # Aggregated evaluation table
 │       ├── scene_summaries/       # Combined scene summaries with metrics
 ├── config.yaml                    # Configuration file for paths and settings
+├── example-images                 # Example outputs for scene summary and metrics table
 ├── environment.yml                # Conda environment setup file
+├── LICENCE                        # MIT Licence
 └── README.md                      # Project documentation
 ```
 

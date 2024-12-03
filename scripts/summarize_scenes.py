@@ -48,6 +48,11 @@ def generate_combined_plot(scene_id: str, scene_dir: Path, metrics: dict, output
     recall = cloud_metrics.get("Recall", "N/A")
     f1 = cloud_metrics.get("F1", "N/A")
 
+    # Safely format the metrics, handling "N/A" gracefully
+    precision_text = f"{float(precision):.4f}" if precision != "N/A" else "N/A"
+    recall_text = f"{float(recall):.4f}" if recall != "N/A" else "N/A"
+    f1_text = f"{float(f1):.4f}" if f1 != "N/A" else "N/A"
+
     # Create the combined plot with a 2x2 grid for images and a metrics row
     fig = plt.figure(figsize=(14, 16))
     gs = fig.add_gridspec(3, 2, height_ratios=[1, 1, 0.2])
@@ -72,9 +77,9 @@ def generate_combined_plot(scene_id: str, scene_dir: Path, metrics: dict, output
     metrics_ax = fig.add_subplot(gs[2, :])  # Span the entire bottom row
     metric_text = (
         f"Cloud Metrics:\n"
-        f"Precision: {precision:.4f}\n"
-        f"Recall: {recall:.4f}\n"
-        f"F1 Score: {f1:.4f}"
+        f"Precision: {precision_text}\n"
+        f"Recall: {recall_text}\n"
+        f"F1 Score: {f1_text}"
     )
     metrics_ax.text(
         0.5, 0.5, metric_text,
@@ -87,6 +92,7 @@ def generate_combined_plot(scene_id: str, scene_dir: Path, metrics: dict, output
     plt.savefig(combined_output_path, bbox_inches="tight", dpi=300)
     plt.close(fig)
     print(f"Combined plot saved for scene {scene_id} at {combined_output_path}")
+
 
 
 if __name__ == "__main__":

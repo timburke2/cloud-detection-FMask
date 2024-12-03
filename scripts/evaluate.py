@@ -21,7 +21,7 @@ def load_config(config_file: str = "config.yaml") -> dict:
     with open(config_file, "r") as file:
         return yaml.safe_load(file)
 
-def generate_scene_metrics(raw_dir: Path, output_dir: Path) -> None:
+def calculate_scene_metrics(raw_dir: Path, output_dir: Path) -> None:
     """Evaluates scenes and writes results to a JSON file."""
     warnings.filterwarnings("ignore", category=NotGeoreferencedWarning)
 
@@ -118,7 +118,8 @@ def generate_scene_metrics(raw_dir: Path, output_dir: Path) -> None:
         json.dump(results, outfile, ensure_ascii=False, indent=4)
     print(f"Evaluation results written to: {output_file}")
 
-def calculate_metrics_table(json_file: Path, output_dir: Path) -> None:
+
+def generate_metrics_table(json_file: Path, output_dir: Path) -> None:
     """
     Calculate and save the mean proportion, precision, recall, and F1 for each type across all scenes.
 
@@ -180,6 +181,57 @@ def calculate_metrics_table(json_file: Path, output_dir: Path) -> None:
 
     print(f"Summary metrics table saved to: {output_file}")
 
+
+def generate_metrics_plot(json_file: Path, output_dir: Path) -> None:
+    """
+    Generates boxplots for Precision, Recall, and F1 scores across metric types.
+
+    Args:
+        json_file (Path): Path to the JSON file containing evaluation data.
+        output_dir (Path): Path to the directory where the boxplots will be saved.
+
+    Returns:
+        None
+    """
+    # Load evaluation data
+    with open(json_file, "r", encoding="utf-8") as infile:
+        results = json.load(infile)
+
+    # Transform data into a DataFrame
+    data = []
+    for result in results:
+        scene = result["Scene"]
+        for metric_type, metrics in result["Metrics"].items():
+            data.append({
+                "Scene": scene,
+                "Type": metric_type,
+                "Proportion": metrics["Proportion"],
+                "Precision": float(metrics["Precision"]) if metrics["Precision"] != "N/A" else np.nan,
+                "Recall": float(metrics["Recall"]) if metrics["Recall"] != "N/A" else np.nan,
+                "F1": float(metrics["F1"]) if metrics["F1"] != "N/A" else np.nan
+            })
+
+    df = pd.DataFrame(data)
+
+    # List of metrics to plot
+    metrics = ["Precision", "Recall", "F1"]
+
+    for metric in metrics:
+        # Generate a boxplot for each metric
+        plt.figure(figsize=(8, 6))
+        df.boxplot(column=metric, by="Type", grid=False)
+        plt.title(f"{metric} Score Distribution by Type")
+        plt.suptitle("")  # Suppress default title
+        plt.ylabel(f"{metric} Score")
+        plt.xlabel("Type")
+
+        # Save the boxplot
+        output_file = output_dir / f"{metric.lower()}_boxplot.png"
+        plt.savefig(output_file, bbox_inches="tight", dpi=300)
+        plt.close()
+        print(f"{metric} boxplot saved to: {output_file}")
+
+
 if __name__ == "__main__":
     config_path = Path(__file__).parent.parent / "config.yaml"
     config = load_config(config_path)
@@ -192,6 +244,8 @@ if __name__ == "__main__":
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Evaluate scenes
-    generate_scene_metrics(raw_dir, output_dir)
-    
-    calculate_metrics_table(json_file, output_dir)
+    calculate_scene_metrics(raw_dir, output_dir)
+
+    generate_metrics_table(json_file, output_dir)
+
+    generate_metrics_plot(json_file, output_dir)

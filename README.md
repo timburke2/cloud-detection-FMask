@@ -82,10 +82,16 @@ python scripts/preprocess_images.py
 ### Step 2: Evaluate FMask Performance
 Calculates evaluation metrics and saves results:
 ```bash
-python scripts/evaluate_fmask_performance.py
+python scripts/evaluate.py
 ```
 
-### Step 3: Summarize Scenes
+### Step 3: Create Scene Visuals
+Processed raw images and outputs .png renderings:
+```bash
+python scripts/visualize_images.py
+```
+
+### Step 4: Summarize Scenes
 Generates visual summaries for each scene, including metrics:
 ```bash
 python scripts/summarize_scenes.py

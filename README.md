@@ -129,6 +129,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-- **FMask Tool**: [https://github.com/USGS-EROS/espa-cloud-masking](https://github.com/USGS-EROS/espa-cloud-masking)
-- **Landsat 8 Biome Dataset**: [https://landsat.usgs.gov/landsat-biome](https://landsat.usgs.gov/landsat-biome)
+- **FMask Tool**: [https://github.com/ubarsc/python-fmask/releases](https://github.com/ubarsc/python-fmask/releases)
+- **Landsat 8 Biome Dataset**: [https://landsat.usgs.gov/landsat-8-cloud-cover-assessment-validation-data](https://landsat.usgs.gov/landsat-8-cloud-cover-assessment-validation-data)
 - **Dependency Management**: Thanks to Conda and the open-source Python community.

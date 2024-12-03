@@ -1,0 +1,13 @@
+name: fmask-eval
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - python-fmask=0.5.10
+  - numpy=2.1.3
+  - scipy=1.14.1
+  - matplotlib
+  - tqdm
+  - pyyaml
+  - rasterio

@@ -1,4 +1,6 @@
 # config.yaml
+# Specify full path to the extracted data directory
+# Specify full path to project directory for raw, processed, and output subdirectories
 paths:
   dataset_dir: "/home/tim/netstore1/CLOUD_DATA/Landsat8Biome/extracted_files"
   raw_dir: "/home/tim/Cloud-Detection/Testing/cloud-detection-FMask/data/raw"

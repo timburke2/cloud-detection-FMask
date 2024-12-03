@@ -2,4 +2,5 @@
 paths:
   dataset_dir: "/home/tim/netstore1/CLOUD_DATA/Landsat8Biome/extracted_files"
   raw_dir: "/home/tim/Cloud-Detection/Testing/cloud-detection-FMask/data/raw"
-  processed_dir : "/home/tim/Cloud-Detection/Testing/cloud-detection-FMask/data/processed"
+  processed_dir: "/home/tim/Cloud-Detection/Testing/cloud-detection-FMask/data/processed"
+  output_dir: "/home/tim/Cloud-Detection/Testing/cloud-detection-FMask/data/output"

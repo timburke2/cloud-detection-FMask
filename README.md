@@ -40,7 +40,7 @@ cloud-detection-FMask/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/cloud-detection-FMask.git
+git clone https://github.com/timburke2/cloud-detection-FMask.git
 cd cloud-detection-FMask
 ```
 
